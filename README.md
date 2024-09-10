@@ -3,7 +3,7 @@
 ## Getting Started
 
 ### Data Access
-- Download the DAS and seismological data used in this study from the [Australian National University Data Commons](doi link under review).
+- Download the DAS and seismological data used in this study from the [Australian National University Data Commons](https://dx.doi.org/10.25911/rnhb-vw10).
 
 ### Preprocessing
 - Preprocess the data using the provided Jupyter notebook: `preprocess_data.ipynb`.
