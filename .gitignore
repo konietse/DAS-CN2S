@@ -1,5 +1,7 @@
 data/*
 ckpt/*
+runs/
+figures/deep-image-prior/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "das-cn2s"
+version = "0.2.0"
+description = "Coherent Noise2Self (CN2S): self-supervised denoising of traffic noise in Distributed Acoustic Sensing data"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Sebastian Konietzny" }]
+requires-python = ">=3.10"
+# core: models, masks, inference and training (scripts/train.py)
+dependencies = [
+  "numpy",
+  "scipy",
+  "torch>=2.0",
+  "h5py",
+  "tqdm",
+  "matplotlib",
+]
+
+[project.optional-dependencies]
+# scripts/preprocess_data.py (reading the nodal seismometer data, strain rate simulation)
+preprocess = [
+  "obspy",
+  "pyproj",
+]
+# notebooks in figures/ (figure_12 additionally needs a clone of Deep Image Prior, see figures/dip.py)
+figures = [
+  "das-cn2s[preprocess]",
+  "pandas",
+  "cartopy",
+  "scikit-image",
+  "torchvision", 
+  "pyseistr @ git+https://github.com/aaspip/pyseistr@a411c11c6ba0d10d9d939763c5941321b0b13fc9",
+  "jupyter",
+  "ipykernel",
+  "ipywidgets",
+  "nbconvert",
+]
+all = ["das-cn2s[preprocess,figures]"]
+
+[project.urls]
+Repository = "https://github.com/konietse/DAS-CN2S"
+Data = "https://doi.org/10.25911/rnhb-vw10"
+
+[tool.setuptools]
+py-modules = []

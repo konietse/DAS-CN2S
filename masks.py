@@ -22,12 +22,13 @@ def get_offsets(nx_width, dx=4, fs=50):
 def xmask(x, center=None, nx_width=1, dx=4, fs=50, hourglass=False):
     
     batch_size, _, nx, nt = x.shape
-    NX, NT = torch.meshgrid(torch.arange(nx), torch.arange(nt), indexing='ij')
+    NX, NT = torch.meshgrid(torch.arange(nx, device=x.device), torch.arange(nt, device=x.device), indexing='ij')
     NX, NT = NX[None, None, :], NT[None, None, :]
 
     if center is None:
         center = torch.cat([torch.randint(0, nx, (batch_size,1)),
                             torch.randint(0, nt, (batch_size,1))], dim=1)
+    center = center.to(x.device)
     c1 = center[:, 1, None, None, None]
     c2 = center[:, 0, None, None, None]
     

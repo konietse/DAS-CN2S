@@ -5,15 +5,7 @@ import h5py
 
 from scipy import signal
 import torch
-import torch.nn.functional as F
-import torchvision.datasets as datasets
-import torchvision.transforms as T
-from torch.utils.data import Dataset, DataLoader, random_split
-
-from datetime import timedelta
-from obspy import UTCDateTime, Catalog, read
-from obspy.clients.fdsn import Client
-from obspy.taup import TauPyModel
+from torch.utils.data import Dataset
 
 
 def get_test_samples():
@@ -57,7 +49,7 @@ def generate_synthetic_das(strain_rate, dx, fs, slowness, nx=512):
 
     sample = torch.zeros((nx, len(strain_rate)))
     for i in range(nx):
-        sample[i] = torch.roll(strain_rate, int(i*shift + np.random.randn(1)))
+        sample[i] = torch.roll(strain_rate, int(i*shift + np.random.randn(1).item()))
     
     return sample
 
@@ -69,7 +61,7 @@ def shift_traffic_rates(traffic_rates, dx, fs, slowness):
     traffic_rates = torch.tile(traffic_rates, (1,3))
     sample = torch.zeros_like(traffic_rates)
     for i in range(len(traffic_rates)):
-        sample[i] = torch.roll(traffic_rates[i], int(i*shift + np.random.randn(1)))
+        sample[i] = torch.roll(traffic_rates[i], int(i*shift + np.random.randn(1).item()))
     sample = torch.roll(sample, np.random.randint(0,traffic_rates.shape[1]//3))
 
     return sample
